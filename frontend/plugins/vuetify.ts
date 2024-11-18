@@ -2,6 +2,7 @@ import '@mdi/font/css/materialdesignicons.css';
 
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
+import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { VBtn } from 'vuetify/components';
 
 export default defineNuxtPlugin((app) => {
@@ -39,6 +40,13 @@ export default defineNuxtPlugin((app) => {
                 variant: 'flat',
                 rounded: 'xl',
                 height: 40,
+            }
+        },
+        icons: {
+            defaultSet: 'mdi',
+            aliases,
+            sets: {
+                mdi
             }
         },
     });
