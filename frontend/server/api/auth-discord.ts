@@ -41,8 +41,13 @@ export default defineEventHandler(async (event) => {
             setCookie(event, CookieName.AccessToken, data.access_token, cookieOption);
             setCookie(event, CookieName.RefreshToken, data.refresh_token, cookieOption);
             setCookie(event, CookieName.ExpiresIn, String(Date.now() + data.expires_in), cookieOption);
+        } else {
+            throw createError({
+                statusCode: 401,
+                statusMessage: 'Error login to Discord'
+            });
         }
-        return dataEncoded.toString();
+        await sendRedirect(event, '/');
     }
     throw createError({
         statusCode: 400,
