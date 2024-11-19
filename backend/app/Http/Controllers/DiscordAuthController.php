@@ -12,7 +12,6 @@ class DiscordAuthController extends Controller {
         $code = $request->query("code");
         if ($code) {
             $response = $this->exchangeCode($code);
-            var_dump($response);
             if ($response->successful()) {
                 $json = $response->json();
                 $tokenType = $json['token_type'];
