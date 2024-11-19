@@ -1,4 +1,6 @@
+import type { CookieOptions } from "nuxt/app";
 import { z } from "zod";
+import { CookieName } from "~/utils/cookieName";
 
 export default defineEventHandler(async (event) => {
     const Oauth2Response = z.object({
@@ -33,9 +35,12 @@ export default defineEventHandler(async (event) => {
         const parsedOauth2 = Oauth2Response.safeParse(response);
         if (parsedOauth2.success) {
             const data = parsedOauth2.data;
-            setCookie(event, 'access-token', data.access_token);
-            setCookie(event, 'refresh-token', data.refresh_token);
-            setCookie(event, 'expires-in', String(Date.now() + data.expires_in));
+            const cookieOption: CookieOptions = {
+                httpOnly: true,
+            };
+            setCookie(event, CookieName.AccessToken, data.access_token, cookieOption);
+            setCookie(event, CookieName.RefreshToken, data.refresh_token, cookieOption);
+            setCookie(event, CookieName.ExpiresIn, String(Date.now() + data.expires_in), cookieOption);
         }
         return dataEncoded.toString();
     }
