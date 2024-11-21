@@ -1,11 +1,6 @@
-import { CookieName } from "./cookieName";
+import type { CookieType } from "./cookieAuth";
 
-const isAuth = () => {
-    const accessToken = useCookie(CookieName.AccessToken);
-    const refreshToken = useCookie(CookieName.RefreshToken);
-    const expiresIn = useCookie(CookieName.ExpiresIn);
-    return typeof accessToken.value === 'string' && typeof refreshToken.value === 'string'
-        && typeof expiresIn.value === 'number'
+export const isAuth = (cookiesAuth: CookieType) => {
+    return typeof cookiesAuth["access-token"] === 'string' && typeof cookiesAuth["refresh-token"] === 'string'
+        && typeof cookiesAuth["expires-in"] === 'number'
 };
-
-export { isAuth };
