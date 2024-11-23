@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ListingMessages from '~/components/ListingMessages.vue';
+
 const cookies = extractCookieAuthenticate();
 const isDisconnect = useState(() => !isAuth(cookies));
 </script>
@@ -11,9 +13,7 @@ const isDisconnect = useState(() => !isAuth(cookies));
             <p>Just to manage messages send on Discord</p>
         </div>
         <div v-else>
-            <h2>You are login</h2>
-            <v-btn @click="user">test</v-btn>
-            <p>Cookie: {{ useCookie(CookieName.AccessToken) }}</p>
+            <!-- <ListingMessages/> -->
         </div>
     </main>
 </template>

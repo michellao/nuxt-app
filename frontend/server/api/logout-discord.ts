@@ -1,18 +1,25 @@
-import { CookieName } from "~/utils/cookieAuth";
+import { extractCookieAuthenticateFromServer } from "../utils/extract-cookies";
 
 export default defineEventHandler(async (event) => {
-    const cookiesKey = [
-        CookieName.AccessToken,
-        CookieName.RefreshToken,
-        CookieName.ExpiresIn,
-        CookieName.TokenType,
-        CookieName.Scope
-    ];
-    cookiesKey.forEach((key) => {
-        const cookie = getCookie(event, key);
-        if (cookie && typeof cookie === 'string') {
-            deleteCookie(event, key);
-        }
-    });
+    const cookies = extractCookieAuthenticateFromServer(event);
+    const { discord } = useRuntimeConfig(event);
+    if (typeof cookies['refresh-token'] === 'string') {
+        const data = {
+            token: cookies["refresh-token"],
+            token_type_hint: 'refresh_token',
+        };
+        const dataEncoded = new URLSearchParams(data);
+        const response = await $fetch('https://discord.com/api/oauth2/token/revoke', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                Authorization: `Basic ${discord.authorization}`,
+            },
+            body: dataEncoded.toString(),
+        });
+    }
+    for (const key of Object.keys(cookies)) {
+        deleteCookie(event, key);
+    };
     await sendRedirect(event, '/');
 });

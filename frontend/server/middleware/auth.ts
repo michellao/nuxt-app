@@ -1,5 +1,5 @@
 import { isAuth } from "~/utils/auth";
-import { extractCookieAuthenticateFromServer } from "~/utils/cookieAuth";
+import { extractCookieAuthenticateFromServer } from "../utils/extract-cookies";
 
 export default defineEventHandler(async (event) => {
     const matcherPath = new RegExp("^\/((?!_nuxt|api\/auth-discord|api/logout-discord).*)");

@@ -1,6 +1,6 @@
 import type { CookieOptions } from "nuxt/app";
 import { z } from "zod";
-import { CookieName } from "~/utils/cookieAuth";
+import { CookieName } from "~/utils/extract-cookies";
 
 export default defineEventHandler(async (event) => {
     const Oauth2Response = z.object({
@@ -16,7 +16,6 @@ export default defineEventHandler(async (event) => {
     if (code && typeof code === 'string') {
         const data = {
             'grant_type': 'authorization_code',
-            'client_id': discord.clientId,
             code: code,
             'redirect_uri': 'http://localhost:3000/api/auth-discord'
         };
