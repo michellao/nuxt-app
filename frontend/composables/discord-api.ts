@@ -1,29 +1,4 @@
-import { number, z } from "zod";
-import { ChannelType, MessageType } from "./discord-types";
-
-const BASE_URI = 'https://discord.com/api/v10';
-
-const Discord = z.object({
-    id: z.string(),
-});
-
-const User = Discord.extend({
-    username: z.string(),
-    global_name: z.string(),
-    locale: z.string(),
-});
-
-const Channel = Discord.extend({
-    type: z.nativeEnum(ChannelType),
-    name: z.string(),
-});
-
-const Message = Discord.extend({
-    timestamp: z.string().datetime(),
-    edited_timestamp: z.nullable(z.string().datetime()),
-    content: z.string(),
-    type: z.nativeEnum(MessageType)
-});
+export const BASE_URI = 'https://discord.com/api/v10';
 
 const fetchDiscord = async (uri: string, opts?: Parameters<typeof useFetch>[1]) => await useFetch(BASE_URI + uri, {
     headers: {
@@ -57,4 +32,16 @@ export async function getMessages() {
     } catch {
         return null;
     }
+}
+
+export async function getUserGuilds() {
+    const { data, error, clear, status, refresh } = await fetchDiscord('/users/@me/guilds', {
+        method: 'GET',
+    });
+    try {
+        const parseGuilds = Guild.array().parse(data.value);
+        return parseGuilds;
+    } catch {
+        return null;
+    };
 }

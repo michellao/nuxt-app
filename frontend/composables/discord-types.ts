@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export enum MessageType {
     DEFAULT = 0,
     RECIPIENT_ADD = 1,
@@ -53,3 +55,29 @@ export enum ChannelType {
     GUILD_FORUM = 15,
     GUILD_MEDIA = 16,
 }
+
+export const Discord = z.object({
+    id: z.string(),
+});
+
+export const User = Discord.extend({
+    username: z.string(),
+    global_name: z.string(),
+    locale: z.string(),
+});
+
+export const Channel = Discord.extend({
+    type: z.nativeEnum(ChannelType),
+    name: z.string(),
+});
+
+export const Message = Discord.extend({
+    timestamp: z.string().datetime({ offset: true }),
+    edited_timestamp: z.nullable(z.string().datetime({ offset: true })),
+    content: z.string(),
+    type: z.nativeEnum(MessageType)
+});
+
+export const Guild = Discord.extend({
+    name: z.string(),
+});
