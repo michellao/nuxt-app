@@ -38,10 +38,6 @@ export async function getUserGuilds() {
     const { data, error, clear, status, refresh } = await fetchDiscord('/users/@me/guilds', {
         method: 'GET',
     });
-    try {
-        const parseGuilds = Guild.array().parse(data.value);
-        return parseGuilds;
-    } catch {
-        return null;
-    };
+    const parseGuilds = Guild.array().parse(data.value);
+    return parseGuilds;
 }
