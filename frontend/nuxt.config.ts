@@ -35,7 +35,7 @@ export default defineNuxtConfig({
       charset: 'utf8',
       viewport: 'width=device-width, initial-scale=1',
       script: [
-        { defer: true, 'data-domain': 'plausible.nanashi.ipv64.net', src: 'https://plausible.nanashi.ipv64.net/js/script.js' }
+        { defer: true, 'data-domain': 'mm-discord.vercel.app', src: 'https://plausible.nanashi.ipv64.net/js/script.js' }
       ],
     },
   },
