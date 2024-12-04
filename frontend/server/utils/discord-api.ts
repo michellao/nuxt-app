@@ -1,5 +1,5 @@
 import { BASE_URI } from "~/composables/discord-api";
-import { Channel, Message } from "~/composables/discord-types";
+import { Channel, ChannelType, Message } from "~/composables/discord-types";
 
 
 const fetchDiscordServer = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await $fetch(BASE_URI + uri, {
@@ -13,7 +13,10 @@ export async function getGuildChannels(guildId: string) {
     const data = await fetchDiscordServer(`/guilds/${guildId}/channels`, {
         method: 'GET',
     });
-    const parseChannels = Channel.array().parse(data);
+    const parseChannels = Channel.array().parse(data).filter(c =>
+        c.type === ChannelType.GUILD_TEXT || c.type === ChannelType.GUILD_VOICE || c.type === ChannelType.DM
+        || c.type === ChannelType.PRIVATE_THREAD || c.type === ChannelType.PUBLIC_THREAD
+    );
     return parseChannels;
 }
 
