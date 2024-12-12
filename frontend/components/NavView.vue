@@ -1,14 +1,16 @@
 <script setup lang="ts">
+const config = useRuntimeConfig();
 const cookies = extractCookieAuthenticate();
 const isDisconnect = useState(() => !isAuth(cookies));
 const userMe = await getUser();
+const urlOauth = config.public.discord.oauth2.url;
 </script>
 
 <template>
     <div><h1>Managements Messages</h1></div>
     <div v-if="isDisconnect">
         <a
-            href="https://discord.com/oauth2/authorize?client_id=1303701511888703509&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth-discord&scope=identify+messages.read+guilds"
+            :href="urlOauth"
         >
             <v-btn-secondary append-icon="mdi-login">Login with Discord</v-btn-secondary>
         </a>

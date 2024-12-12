@@ -23,10 +23,20 @@ export default defineNuxtConfig({
     discord: {
       clientId: '',
       clientSecret: '',
-      authorization: '',
       token: '',
     },
     mongodb: '',
+    public: {
+      discord: {
+        oauth2: {
+          url: '',
+        },
+      },
+      plausible: {
+        src: '',
+        domain: '',
+      },
+    }
   },
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
@@ -35,7 +45,7 @@ export default defineNuxtConfig({
       charset: 'utf8',
       viewport: 'width=device-width, initial-scale=1',
       script: [
-        { defer: true, 'data-domain': 'mm-discord.vercel.app', src: 'https://plausible.nanashi.ipv64.net/js/script.js' }
+        process.env.NUXT_PUBLIC_PLAUSIBLE_SRC ? { defer: true, 'data-domain': process.env.NUXT_PUBLIC_PLAUSIBLE_DOMAIN, src: process.env.NUXT_PUBLIC_PLAUSIBLE_SRC, } : undefined
       ],
     },
   },

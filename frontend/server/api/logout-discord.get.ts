@@ -9,11 +9,12 @@ export default defineEventHandler(async (event) => {
             token_type_hint: 'refresh_token',
         };
         const dataEncoded = new URLSearchParams(data);
+        const authorization = Buffer.from(`${discord.clientId}:${discord.clientSecret}`).toString('base64');
         const response = await $fetch('https://discord.com/api/oauth2/token/revoke', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Basic ${discord.authorization}`,
+                Authorization: `Basic ${authorization}`,
             },
             body: dataEncoded.toString(),
         });
