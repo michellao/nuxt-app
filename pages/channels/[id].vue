@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { Message } from '#build/imports';
 import type { z } from 'zod';
 
 const route = useRoute();
-const guilds = await getUserGuilds();
+// const guilds = await getUserGuilds();
 const channelId = route.params.id;
 const { data, status } = await useFetch(`/api/discord/channels/${channelId}/messages`);
 type Message = z.infer<typeof Message>;

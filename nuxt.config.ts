@@ -44,9 +44,9 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf8',
       viewport: 'width=device-width, initial-scale=1',
-      script: [
+      /*script: [
         process.env.NUXT_PUBLIC_PLAUSIBLE_SRC ? { defer: true, 'data-domain': process.env.NUXT_PUBLIC_PLAUSIBLE_DOMAIN, src: process.env.NUXT_PUBLIC_PLAUSIBLE_SRC, } : undefined
-      ],
+      ],*/
     },
   },
   typescript: {

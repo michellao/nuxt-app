@@ -1,6 +1,11 @@
-
-
 export const BASE_URI = 'https://discord.com/api/v10';
+
+export const fetchDiscord = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await $fetch(BASE_URI + uri, {
+    headers: {
+        authorization: `${useCookie(CookieName.TokenType).value} ${useCookie(CookieName.AccessToken).value}`,
+    },
+    ...opts
+});
 
 export async function getMessages() {
     const data = await fetchDiscord('/channels/', {
