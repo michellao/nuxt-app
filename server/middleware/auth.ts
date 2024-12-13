@@ -1,11 +1,12 @@
-import { isAuth } from "~/utils/auth";
+import { isAuth } from "../utils/authenticate";
 import { extractCookieAuthenticateFromServer } from "../utils/extract-cookies";
 
 export default defineEventHandler(async (event) => {
     const matcherPath = new RegExp("^/((?!_nuxt|__nuxt_.*|api/(auth|logout)-discord))");
     if (event.path !== '/' && matcherPath.test(event.path)) {
         const cookies = extractCookieAuthenticateFromServer(event);
-        if (!isAuth(cookies)) {
+        const isDisconnected = !(await isAuth(cookies));
+        if (isDisconnected) {
             throw createError({
                 statusCode: 401,
                 message: 'Unauthorized'

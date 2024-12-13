@@ -1,6 +1,26 @@
+import { useCookie } from "nuxt/app";
 import { BASE_URI } from "~/composables/discord-api";
-import { Channel, ChannelType, Message } from "~/composables/discord-types";
+import { Channel, ChannelType, Message, User } from "~/composables/discord-types";
+import { CookieName } from "./extract-cookies";
 
+export const fetchDiscord = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await $fetch(BASE_URI + uri, {
+    headers: {
+        authorization: `${useCookie(CookieName.TokenType).value} ${useCookie(CookieName.AccessToken).value}`,
+    },
+    ...opts
+});
+
+export async function getUser() {
+    const data = await fetchDiscord('/users/@me', {
+        method: 'GET',
+    });
+    try {
+        const parseUser = User.parse(data);
+        return parseUser;
+    } catch {
+        return null;
+    }
+}
 
 const fetchDiscordServer = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await $fetch(BASE_URI + uri, {
     headers: {

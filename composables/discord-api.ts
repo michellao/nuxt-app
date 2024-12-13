@@ -1,43 +1,30 @@
+
+
 export const BASE_URI = 'https://discord.com/api/v10';
 
-const fetchDiscord = async (uri: string, opts?: Parameters<typeof useFetch>[1]) => await useFetch(BASE_URI + uri, {
-    headers: {
-        authorization: `${useCookie(CookieName.TokenType).value} ${useCookie(CookieName.AccessToken).value}`,
-    },
-    ...opts
-});
-
-export async function getUser() {
-    const { data, error, clear, status, refresh } = await fetchDiscord('/users/@me', {
-        method: 'GET',
-    });
-    try {
-        const parseUser = User.parse(data.value);
-        return parseUser;
-    } catch {
-        return null;
-    }
-}
-
 export async function getMessages() {
-    const { data, error, clear, status, refresh } = await fetchDiscord('/channels/', {
+    const data = await fetchDiscord('/channels/', {
         method: 'GET',
         query: {
             limit: 100,
         }
     });
     try {
-        const parseMessages = Message.parse(data.value);
+        const parseMessages = Message.array().parse(data);
         return parseMessages;
     } catch {
-        return null;
+        return [];
     }
 }
 
 export async function getUserGuilds() {
-    const { data, error, clear, status, refresh } = await fetchDiscord('/users/@me/guilds', {
+    const data = await fetchDiscord('/users/@me/guilds', {
         method: 'GET',
     });
-    const parseGuilds = Guild.array().parse(data.value);
-    return parseGuilds;
+    try {
+        const parseGuilds = Guild.array().parse(data);
+        return parseGuilds;
+    } catch {
+        return [];
+    }
 }
