@@ -1,11 +1,9 @@
 <script setup lang="ts">
-
-const cookies = extractCookieAuthenticate();
-const isAuthenticate = false;
+const isAuthenticate = await useFetch('/api/users/@me');
 </script>
 
 <template>
-    <div v-if="isAuthenticate">
+    <div v-if="isAuthenticate.data.value !== null">
         <ListingGuilds/>
     </div>
     <div v-else>

@@ -12,7 +12,7 @@ if (status.value === 'success') {
 </script>
 
 <template>
-    <!-- <h2>Channels in <b>{{ guilds.find(g => g.id === route.params.id)?.name }}</b></h2> -->
+    <h2>Channels in <b>{{ guilds.find(g => g.id === route.params.id)?.name }}</b></h2>
     <v-list>
         <NuxtLink
             :to="`/channels/${c.id}`"
