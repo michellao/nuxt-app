@@ -1,6 +1,6 @@
 export const BASE_URI = 'https://discord.com/api/v10';
 
-export const fetchDiscord = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await $fetch(BASE_URI + uri, {
+export const fetchDiscord = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await useFetch(BASE_URI + uri, {
     headers: {
         authorization: `${useCookie(CookieName.TokenType).value} ${useCookie(CookieName.AccessToken).value}`,
     },
