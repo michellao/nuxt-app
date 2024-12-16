@@ -1,6 +1,6 @@
 import type { CookieOptions } from "nuxt/app";
 import { z } from "zod";
-import { CookieName } from "../utils/extract-cookies";
+import { CookieName } from "~/utils/extract-cookies";
 
 export default defineEventHandler(async (event) => {
     const Oauth2Response = z.object({

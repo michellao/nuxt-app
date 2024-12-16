@@ -1,4 +1,14 @@
-import { CookieName, type CookieType } from "~/server/utils/extract-cookies";
+export enum CookieName {
+    AccessToken = 'access-token',
+    RefreshToken = 'refresh-token',
+    ExpiresIn = 'expires-in',
+    TokenType = 'token-type',
+    Scope = 'scope',
+}
+
+export type CookieType = {
+    [K in CookieName]+?: string
+};
 
 export const extractCookieAuthenticate = (): CookieType => {
     let list: CookieType = {};
