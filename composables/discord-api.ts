@@ -8,14 +8,14 @@ export const fetchDiscord = async (uri: string, opts?: Parameters<typeof $fetch>
 });
 
 export async function getMessages() {
-    const data = await fetchDiscord('/channels/', {
+    const { data } = await fetchDiscord('/channels/', {
         method: 'GET',
         query: {
             limit: 100,
         }
     });
     try {
-        const parseMessages = Message.array().parse(data);
+        const parseMessages = Message.array().parse(data.value);
         return parseMessages;
     } catch {
         return [];
@@ -23,11 +23,11 @@ export async function getMessages() {
 }
 
 export async function getUserGuilds() {
-    const data = await fetchDiscord('/users/@me/guilds', {
+    const { data } = await fetchDiscord('/users/@me/guilds', {
         method: 'GET',
     });
     try {
-        const parseGuilds = Guild.array().parse(data);
+        const parseGuilds = Guild.array().parse(data.value);
         return parseGuilds;
     } catch {
         return [];
