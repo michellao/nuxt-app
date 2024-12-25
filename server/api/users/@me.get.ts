@@ -4,9 +4,11 @@ import { CookieName } from "~/utils/extract-cookies";
 
 export default defineEventHandler(async (event) => {
     try {
+        const tokenType = getCookie(event, CookieName.TokenType);
+        const accessToken = getCookie(event, CookieName.AccessToken);
         const data = await $fetch(BASE_URI + '/users/@me', {
             headers: {
-                authorization: `${getCookie(event, CookieName.TokenType)} ${getCookie(event, CookieName.AccessToken)}`,
+                authorization: `${tokenType} ${accessToken}`,
             },
             method: 'GET',
         });
