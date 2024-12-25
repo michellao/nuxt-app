@@ -1,5 +1,5 @@
 import { BASE_URI } from "~/composables/discord-api";
-import { Channel, ChannelType, Message, User } from "~/composables/discord-types";
+import { Channel, ChannelType, Message } from "~/composables/discord-types";
 
 const fetchDiscordServer = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await $fetch(BASE_URI + uri, {
     headers: {
