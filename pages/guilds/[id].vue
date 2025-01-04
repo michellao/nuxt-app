@@ -15,7 +15,7 @@ if (status.value === 'success') {
     <h2>Channels in <b>{{ guilds.find(g => g.id === route.params.id)?.name }}</b></h2>
     <v-list>
         <NuxtLink
-            :to="`/channels/${c.id}`"
+            :to="`/guilds/${route.params.id}/channels/${c.id}`"
             v-for="c in channels"
             :key="c.id"
         >
