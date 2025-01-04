@@ -5,6 +5,22 @@ const fetchDiscordServer = async (uri: string, opts?: Parameters<typeof $fetch>[
     headers: {
         authorization: `Bot ${useRuntimeConfig().discord.token}`,
     },
+    onRequestError: error => {
+        console.log("onRequestError:");
+        console.log(error);
+    },
+    onRequest: request => {
+        console.log("onRequest:");
+        console.log(request);
+    },
+    onResponse: response => {
+        console.log("onResponse:");
+        console.log(response);
+    },
+    onResponseError: response => {
+        console.log("onResponseError:");
+        console.log(response);
+    },
     ...opts
 });
 
