@@ -3,7 +3,7 @@ const guilds = await getUserGuilds();
 </script>
 
 <template>
-    <h2>Guilds</h2>
+    <h2 class="bg-secondary">Guilds</h2>
     <v-list-guilds>
         <NuxtLink
             v-for="g of guilds"
