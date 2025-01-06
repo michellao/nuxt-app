@@ -63,7 +63,7 @@ export const Discord = z.object({
 export const User = Discord.extend({
     username: z.string(),
     global_name: z.string(),
-    locale: z.string(),
+    locale: z.optional(z.string()),
 });
 
 export const Channel = Discord.extend({
@@ -75,7 +75,9 @@ export const Message = Discord.extend({
     timestamp: z.string().datetime({ offset: true }),
     edited_timestamp: z.nullable(z.string().datetime({ offset: true })),
     content: z.string(),
-    type: z.nativeEnum(MessageType)
+    author: User,
+    type: z.nativeEnum(MessageType),
+    webhook_id: z.optional(z.string()),
 });
 
 export const Guild = Discord.extend({
