@@ -8,16 +8,16 @@ const urlOauth = config.public.discord.oauth2.url;
     <div><h1>Managements Messages</h1></div>
     <div v-if="userMe.data.value !== null">
         {{ userMe.data.value.global_name }}
-        <a href="/api/logout-discord">
+        <NuxtLink to="/api/logout-discord">
             <v-btn-secondary icon="mdi-logout"/>
-        </a>
+        </NuxtLink>
     </div>
     <div v-else>
-        <a
-            :href="urlOauth"
+        <NuxtLink
+            :to="urlOauth"
         >
             <v-btn-secondary append-icon="mdi-login">Login with Discord</v-btn-secondary>
-        </a>
+        </NuxtLink>
     </div>
 </template>
 
