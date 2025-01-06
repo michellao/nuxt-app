@@ -2,25 +2,25 @@ import { BASE_URI } from "~/composables/discord-api";
 import { Channel, ChannelType, Message } from "~/composables/discord-types";
 
 const fetchDiscordServer = async (uri: string, opts?: Parameters<typeof $fetch>[1]) => await $fetch(BASE_URI + uri, {
-    headers: {
-        authorization: `Bot ${useRuntimeConfig().discord.token}`,
-    },
-    onRequestError: error => {
-        console.log("onRequestError:");
-        console.log(error);
-    },
-    onRequest: request => {
-        console.log("onRequest:");
-        console.log(request);
-    },
-    onResponse: response => {
-        console.log("onResponse:");
-        console.log(response);
-    },
-    onResponseError: response => {
-        console.log("onResponseError:");
-        console.log(response);
-    },
+        headers: {
+            authorization: `Bot ${useRuntimeConfig().discord.token}`,
+        },
+        /* onRequestError: error => {
+            console.log("onRequestError:");
+            console.log(error);
+        }, */
+        /* onRequest: request => {
+            console.log("onRequest:");
+            console.log(request);
+        }, */
+        /* onResponse: response => {
+            console.log("onResponse:");
+            console.log(response);
+        },
+        onResponseError: response => {
+            console.log("onResponseError:");
+            console.log(response);
+        }, */
     ...opts
 });
 
