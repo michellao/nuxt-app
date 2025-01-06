@@ -20,9 +20,6 @@ nav {
 nav div {
     margin: 0 8px;
 }
-main {
-    margin: 12px 8px;
-}
 @media screen and (min-width: 768px) {
     nav div {
         margin: 0 24px;
