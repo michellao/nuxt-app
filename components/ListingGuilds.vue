@@ -4,7 +4,7 @@ const guilds = await getUserGuilds();
 
 <template>
     <h2>Guilds</h2>
-    <v-list>
+    <v-list-guilds>
         <NuxtLink
             v-for="g of guilds"
             :key="g.id"
@@ -12,7 +12,7 @@ const guilds = await getUserGuilds();
         >
             <v-list-item :title="g.name"/>
         </NuxtLink>
-    </v-list>
+    </v-list-guilds>
 </template>
 
 <style>

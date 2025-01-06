@@ -3,7 +3,7 @@ import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
-import { VBtn } from 'vuetify/components';
+import { VBreadcrumbs, VBtn, VList } from 'vuetify/components';
 
 export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
@@ -29,6 +29,8 @@ export default defineNuxtPlugin((app) => {
         },
         aliases: {
             VBtnSecondary: VBtn,
+            VListGuilds: VList,
+            VBreadcrumbsCustom: VBreadcrumbs,
         },
         defaults: {
             VBtn: {
@@ -40,7 +42,10 @@ export default defineNuxtPlugin((app) => {
                 variant: 'flat',
                 rounded: 'xl',
                 height: 40,
-            }
+            },
+            VBreadcrumbsCustom: {
+                divider: '>'
+            },
         },
         icons: {
             defaultSet: 'mdi',
