@@ -33,7 +33,7 @@ if (status.value === 'success') {
             :key="c.id"
         >
             <v-list-item
-                :title="c.name"
+                :title="c.name ?? ''"
             />
         </NuxtLink>
     </v-list-guilds>

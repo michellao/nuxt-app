@@ -62,13 +62,13 @@ export const Discord = z.object({
 
 export const User = Discord.extend({
     username: z.string(),
-    global_name: z.string(),
+    global_name: z.nullable(z.string()),
     locale: z.optional(z.string()),
 });
 
 export const Channel = Discord.extend({
     type: z.nativeEnum(ChannelType),
-    name: z.string(),
+    name: z.optional(z.nullable(z.string())),
 });
 
 export const Message = Discord.extend({
