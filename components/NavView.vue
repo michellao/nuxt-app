@@ -8,9 +8,9 @@ const urlOauth = config.public.discord.oauth2.url;
     <div><h1>Managements Messages</h1></div>
     <div v-if="userMe.data.value !== null">
         {{ userMe.data.value.global_name }}
-        <NuxtLink to="/api/logout-discord">
+        <a href="/api/logout-discord">
             <v-btn-secondary icon="mdi-logout"/>
-        </NuxtLink>
+        </a>
     </div>
     <div v-else>
         <NuxtLink
