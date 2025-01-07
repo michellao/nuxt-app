@@ -16,7 +16,7 @@ const urlOauth = config.public.discord.oauth2.url;
         <NuxtLink
             :to="urlOauth"
         >
-            <v-btn-secondary append-icon="mdi-login">Login with Discord</v-btn-secondary>
+            <v-btn-secondary append-icon="mdi-login">Discord</v-btn-secondary>
         </NuxtLink>
     </div>
 </template>
