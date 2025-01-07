@@ -6,11 +6,14 @@ const isAuthenticate = await useFetch('/api/users/@me');
     <div v-if="isAuthenticate.data.value !== null">
         <ListingGuilds/>
     </div>
-    <div v-else>
+    <div v-else class="main">
         <h2>The goal of this project</h2>
         <p>Just to manage messages send on Discord</p>
     </div>
 </template>
 
 <style>
+.main {
+    margin: 8px;
+}
 </style>
