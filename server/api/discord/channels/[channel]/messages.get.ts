@@ -8,11 +8,15 @@ export default defineEventHandler(async (event) => {
         const messages = await getChannelMessages(channel);
         const lastMessage = messages[messages.length - 1];
         await mongoose.connect(useRuntimeConfig(event).mongodb);
-        const pagination = new PaginationMessage({
+        const searchObj = {
             user_id: userMe?.id,
             last_message_id: lastMessage.id,
-        });
-        pagination.save();
+        };
+        const pagination = await PaginationMessage.exists(searchObj);
+        if (pagination === null) {
+            PaginationMessage.deleteMany({ user_id: userMe?.id });
+            PaginationMessage.create(searchObj);
+        }
         return messages.filter(m => m.author.id === userMe?.id);
     } else {
         throw createError({
