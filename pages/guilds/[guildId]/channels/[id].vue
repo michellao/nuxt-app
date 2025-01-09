@@ -26,15 +26,49 @@ let items: VBreadcrumbs['$props']['items'] = [
         href: `/guilds/${guildId}/channels/${channelId}`,
     }
 ];
-let messages: Message[] | null = [];
+let messages = useState<Message[] | null>('messages', () => []);
 if (status.value === 'success') {
-    messages = data.value;
+    messages.value = data.value;
 }
+let debounceTimer: NodeJS.Timeout;
+const checkBottom = () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        if (scrollPosition >= documentHeight) {
+            console.log("Bottom");
+        }
+    }, 100);
+}
+
+onBeforeMount(() => {
+    window.addEventListener('scroll', checkBottom);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('scroll', checkBottom);
+});
 </script>
 
 <template>
     <SubMenu title="Messages" :items="items"/>
     <v-list-guilds>
+        <v-list-item
+            v-for="m in messages"
+            :key="m.id"
+            :title="m.content"
+        />
+        <v-list-item
+            v-for="m in messages"
+            :key="m.id"
+            :title="m.content"
+        />
+        <v-list-item
+            v-for="m in messages"
+            :key="m.id"
+            :title="m.content"
+        />
         <v-list-item
             v-for="m in messages"
             :key="m.id"
