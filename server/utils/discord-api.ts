@@ -35,11 +35,12 @@ export async function getGuildChannels(guildId: string) {
     return parseChannels;
 }
 
-export async function getChannelMessages(channelId: string) {
+export async function getChannelMessages(channelId: string, queryOptions?: { before?: string, after?: string }) {
     const data = await fetchDiscordServer(`/channels/${channelId}/messages`, {
         method: 'GET',
         query: {
-            limit: 100,
+            limit: 25,
+            ...queryOptions,
         },
     });
     const parseMessages = Message.array().parse(data);
