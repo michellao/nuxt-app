@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import mongoose from 'mongoose';
 import type { VBreadcrumbs } from 'vuetify/components';
 import type { z } from 'zod';
 import SubMenu from '~/components/SubMenu.vue';
-
 const route = useRoute();
 const guilds = await getUserGuilds();
 const guildId = route.params.guildId;
@@ -33,11 +33,15 @@ if (status.value === 'success') {
 let debounceTimer: NodeJS.Timeout;
 const checkBottom = () => {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
+    debounceTimer = setTimeout(async () => {
         const scrollPosition = window.scrollY + window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
         if (scrollPosition >= documentHeight) {
-            console.log("Bottom");
+            const lastIdMessage = await $fetch(`/api/discord/channels/${channelId}/next-messages`);
+            const { data, status } = await useFetch(`/api/discord/channels/${channelId}/messages?before=${lastIdMessage}`);
+            if (status.value === 'success') {
+                messages.value?.push(...data.value || []);
+            }
         }
     }, 100);
 }
@@ -54,21 +58,6 @@ onBeforeUnmount(() => {
 <template>
     <SubMenu title="Messages" :items="items"/>
     <v-list-guilds>
-        <v-list-item
-            v-for="m in messages"
-            :key="m.id"
-            :title="m.content"
-        />
-        <v-list-item
-            v-for="m in messages"
-            :key="m.id"
-            :title="m.content"
-        />
-        <v-list-item
-            v-for="m in messages"
-            :key="m.id"
-            :title="m.content"
-        />
         <v-list-item
             v-for="m in messages"
             :key="m.id"
