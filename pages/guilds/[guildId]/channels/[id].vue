@@ -64,6 +64,7 @@ onBeforeUnmount(() => {
             :title="m.content"
         />
     </v-list-guilds>
+    <v-btn-secondary @click="checkBottom">Load more...</v-btn-secondary>
 </template>
 
 <style></style>
