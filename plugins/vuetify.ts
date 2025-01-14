@@ -29,7 +29,7 @@ export default defineNuxtPlugin((app) => {
         },
         aliases: {
             VBtnSecondary: VBtn,
-            VListGuilds: VList,
+            VListCustom: VList,
             VBreadcrumbsCustom: VBreadcrumbs,
         },
         defaults: {
@@ -45,6 +45,10 @@ export default defineNuxtPlugin((app) => {
             },
             VBreadcrumbsCustom: {
                 divider: '>'
+            },
+            VListCustom: {
+                baseColor: 'primary',
+                bgColor: 'background',
             },
         },
         icons: {

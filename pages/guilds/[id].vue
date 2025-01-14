@@ -26,7 +26,7 @@ if (status.value === 'success') {
 
 <template>
     <SubMenu title="Channels" :items="items"/>
-    <v-list-guilds>
+    <v-list-custom>
         <NuxtLink
             :to="`/guilds/${guildId}/channels/${c.id}`"
             v-for="c in channels"
@@ -36,7 +36,7 @@ if (status.value === 'success') {
                 :title="c.name ?? ''"
             />
         </NuxtLink>
-    </v-list-guilds>
+    </v-list-custom>
 </template>
 
 <style></style>

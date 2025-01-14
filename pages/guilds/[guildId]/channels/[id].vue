@@ -57,13 +57,14 @@ onBeforeUnmount(() => {
 
 <template>
     <SubMenu title="Messages" :items="items"/>
-    <v-list-guilds>
+    <v-list-custom>
         <v-list-item
             v-for="m in messages"
+            :class="m.type === MessageType.THREAD_CREATED ? 'created-thread' : ''"
             :key="m.id"
             :title="m.content"
         />
-    </v-list-guilds>
+    </v-list-custom>
     <v-btn-secondary @click="checkBottom">Load more...</v-btn-secondary>
 </template>
 
