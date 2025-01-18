@@ -60,7 +60,7 @@ onBeforeUnmount(() => {
     <v-list-custom>
         <v-list-item
             v-for="m in messages"
-            :class="m.type === MessageType.THREAD_CREATED ? 'created-thread' : ''"
+            :subtitle="m.type === MessageType.THREAD_CREATED ? 'created-thread' : ''"
             :key="m.id"
             :title="m.content"
         >
