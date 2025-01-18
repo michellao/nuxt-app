@@ -63,7 +63,14 @@ onBeforeUnmount(() => {
             :class="m.type === MessageType.THREAD_CREATED ? 'created-thread' : ''"
             :key="m.id"
             :title="m.content"
-        />
+        >
+            <template v-slot:append>
+                <v-btn
+                    color="red"
+                    icon="mdi-trash-can"
+                />
+            </template>
+        </v-list-item>
     </v-list-custom>
     <v-btn-secondary @click="checkBottom">Load more...</v-btn-secondary>
 </template>
