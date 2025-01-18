@@ -8,7 +8,7 @@ const isAuthenticate = await useFetch('/api/users/@me');
     </div>
     <div v-else class="main">
         <h2>The goal of this project</h2>
-        <p>Just to manage messages send on Discord</p>
+        <p>Manage Discord message only</p>
     </div>
 </template>
 
