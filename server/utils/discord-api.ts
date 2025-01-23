@@ -46,3 +46,10 @@ export async function getChannelMessages(channelId: string, queryOptions?: { bef
     const parseMessages = Message.array().parse(data);
     return parseMessages;
 }
+
+export async function deleteMessage(channelId: string, messageId: string) {
+    const data = await fetchDiscordServer(`/channels/${channelId}/messages/${messageId}`, {
+        method: 'DELETE',
+    });
+    return data;
+}
