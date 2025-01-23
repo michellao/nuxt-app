@@ -53,6 +53,16 @@ onBeforeMount(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', checkBottom);
 });
+
+const deleteAMessage = (messageId: string) => {
+    $fetch(`/api/discord/channels/${channelId}/messages/${messageId}`, {
+        method: 'DELETE',
+    });
+    const indexDeleted = messages.value?.findIndex(m => m.id === messageId);
+    if (indexDeleted) {
+        messages.value?.splice(indexDeleted, 1);
+    }
+}
 </script>
 
 <template>
@@ -68,6 +78,7 @@ onBeforeUnmount(() => {
                 <v-btn
                     color="red"
                     icon="mdi-trash-can"
+                    @click="deleteAMessage(m.id)"
                 />
             </template>
         </v-list-item>
