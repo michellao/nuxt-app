@@ -83,7 +83,7 @@ const deleteAMessage = (messageId: string) => {
                 <NuxtLink target="_blank" :to="`https://discord.com/channels/${guildId}/${channelId}/${m.id}`">
                     <v-btn
                         icon="mdi-open-in-new"
-                    ></v-btn>
+                    />
                 </NuxtLink>
             </template>
         </v-list-item>
