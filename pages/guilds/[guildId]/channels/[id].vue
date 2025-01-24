@@ -67,6 +67,7 @@ const deleteAMessage = (messageId: string) => {
 
 <template>
     <SubMenu title="Messages" :items="items"/>
+    <v-text-field append-icon="mdi-magnify"></v-text-field>
     <v-list-custom>
         <v-list-item
             v-for="m in messages"
