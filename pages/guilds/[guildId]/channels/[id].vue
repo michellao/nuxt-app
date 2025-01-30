@@ -54,6 +54,8 @@ onBeforeUnmount(() => {
     window.removeEventListener('scroll', checkBottom);
 });
 
+const filter = useState('filter', () => '');
+
 const deleteAMessage = (messageId: string) => {
     $fetch(`/api/discord/channels/${channelId}/messages/${messageId}`, {
         method: 'DELETE',
@@ -67,7 +69,7 @@ const deleteAMessage = (messageId: string) => {
 
 <template>
     <SubMenu title="Messages" :items="items"/>
-    <v-text-field append-inner-icon="mdi-magnify"></v-text-field>
+    <v-text-field append-inner-icon="mdi-magnify" v-model="filter"></v-text-field>
     <v-list-custom>
         <v-list-item
             v-for="m in messages"
