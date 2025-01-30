@@ -72,7 +72,7 @@ const deleteAMessage = (messageId: string) => {
     <v-text-field append-inner-icon="mdi-magnify" v-model="filter"></v-text-field>
     <v-list-custom>
         <v-list-item
-            v-for="m in messages"
+            v-for="m in messages?.filter((m) => m.content.toLowerCase().includes(filter.toLowerCase()))"
             :subtitle="m.type === MessageType.THREAD_CREATED ? 'created-thread' : ''"
             :key="m.id"
             :title="m.content"
