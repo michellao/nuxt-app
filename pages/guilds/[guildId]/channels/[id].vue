@@ -26,9 +26,9 @@ let items: VBreadcrumbs['$props']['items'] = [
         href: `/guilds/${guildId}/channels/${channelId}`,
     }
 ];
-let messages = useState<Message[] | null>('messages', () => []);
+let messages = useState<Message[]>('messages', () => []);
 if (status.value === 'success') {
-    messages.value = data.value;
+    messages.value = data.value ?? [];
 }
 let debounceTimer: NodeJS.Timeout;
 const checkBottom = () => {
