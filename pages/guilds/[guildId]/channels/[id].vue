@@ -5,12 +5,11 @@ import type { z } from 'zod';
 import SubMenu from '~/components/SubMenu.vue';
 const route = useRoute();
 const guilds = await getUserGuilds();
-const guildId = route.params.guildId;
+const guildId = typeof route.params.guildId === 'string' ? route.params.guildId : null;
 const actualGuildName = guilds.find(g => g.id === guildId)?.name ?? '';
-const channelId = route.params.id;
+const channelId = typeof route.params.id === 'string' ? route.params.id : null;
 const channels = await useFetch(`/api/discord/guilds/${guildId}/channels`);
 const actualChannelName = channels.data.value?.find(channel => channel.id === channelId)?.name ?? '';
-const { data, status } = await useFetch(`/api/discord/channels/${channelId}/messages`);
 type Message = z.infer<typeof Message>;
 let items: VBreadcrumbs['$props']['items'] = [
     {
@@ -27,8 +26,17 @@ let items: VBreadcrumbs['$props']['items'] = [
     }
 ];
 let messages = useState<Message[]>('messages', () => []);
-if (status.value === 'success') {
-    messages.value = data.value ?? [];
+if (channelId && import.meta.client) {
+    const browserData = localStorage.getItem(channelId);
+    if (browserData) {
+        $fetch(`/api/discord/channels/${channelId}/clear-pagination`);
+        messages.value = JSON.parse(browserData);
+    } else {
+        const { data, status } = await useFetch(`/api/discord/channels/${channelId}/messages`);
+        if (status.value === 'success') {
+            messages.value = data.value ?? [];
+        }
+    }
 }
 let debounceTimer: NodeJS.Timeout;
 const checkBottom = () => {
@@ -36,11 +44,12 @@ const checkBottom = () => {
     debounceTimer = setTimeout(async () => {
         const scrollPosition = window.scrollY + window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
-        if (scrollPosition >= documentHeight) {
+        if (scrollPosition >= documentHeight && channelId) {
             const lastIdMessage = await $fetch(`/api/discord/channels/${channelId}/next-messages`);
             const { data, status } = await useFetch(`/api/discord/channels/${channelId}/messages?before=${lastIdMessage}`);
             if (status.value === 'success') {
                 messages.value?.push(...data.value || []);
+                localStorage.setItem(channelId, JSON.stringify(messages.value));
             }
         }
     }, 100);
