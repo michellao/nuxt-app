@@ -39,7 +39,7 @@ export async function getChannelMessages(channelId: string, queryOptions?: { bef
     const data = await fetchDiscordServer(`/channels/${channelId}/messages`, {
         method: 'GET',
         query: {
-            limit: 25,
+            limit: 100,
             ...queryOptions,
         },
     });
