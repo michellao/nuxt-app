@@ -31,6 +31,7 @@ export default defineNuxtPlugin((app) => {
             VBtnSecondary: VBtn,
             VListCustom: VList,
             VBreadcrumbsCustom: VBreadcrumbs,
+            VListGuilds: VList,
         },
         defaults: {
             VBtn: {
