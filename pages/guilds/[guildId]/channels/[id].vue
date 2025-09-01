@@ -31,6 +31,10 @@ if (channelId && import.meta.client) {
     if (browserData) {
         $fetch(`/api/discord/channels/${channelId}/clear-pagination`);
         messages.value = JSON.parse(browserData);
+        const { data, status } = await useFetch(`/api/discord/channels/${channelId}/messages?after=${messages.value[messages.value.length - 1].id}`);
+        if (status.value === 'success') {
+            messages.value = data.value ?? [];
+        }
     } else {
         const { data, status } = await useFetch(`/api/discord/channels/${channelId}/messages`);
         if (status.value === 'success') {
