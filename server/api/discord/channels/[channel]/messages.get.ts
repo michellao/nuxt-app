@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { PaginationMessage } from "~/server/utils/mongodb";
 
 export default defineEventHandler(async (event) => {
     const channel = getRouterParam(event, 'channel');
@@ -10,7 +9,7 @@ export default defineEventHandler(async (event) => {
         await mongoose.connect(useRuntimeConfig(event).mongodb);
         const searchObj = {
             user_id: userMe?.id,
-            last_message_id: lastMessage.id,
+            last_message_id: lastMessage?.id,
         };
         const pagination = await PaginationMessage.exists(searchObj);
         if (pagination === null) {

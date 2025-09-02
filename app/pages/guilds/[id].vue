@@ -19,7 +19,7 @@ let items: VBreadcrumbs['$props']['items'] = [
         href: `/guilds/${guildId}`
     }
 ];
-if (status.value === 'success') {
+if (status.value === 'success' && data.value) {
     channels = data.value;
 }
 </script>
